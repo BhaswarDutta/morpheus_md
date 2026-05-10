@@ -100,7 +100,7 @@ nav h1 {
 
   overflow-y: auto;
 
-  background: #0c0e13;
+  background: var(--surface);
 
   align-items: flex-start;
 }
