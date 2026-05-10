@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-
+from fastapi import Form
 
 app = FastAPI()
 
@@ -15,3 +15,9 @@ def check_health():
 @app.get("/")
 def home():
     return FileResponse("../frontend/index.html")
+
+@app.post("/convert")
+async def convert(markdown: str = Form(...)):
+    print(markdown)
+
+    return {"status": "received"}

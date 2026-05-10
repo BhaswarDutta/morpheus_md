@@ -42,7 +42,12 @@
             </svg>
             <span>Upload Resume</span>
           </label>
-          <button class="convert-button">
+          <button
+            class="convert-button"
+            hx-post="/convert"
+            hx-include="#resumeTextDisplay"
+            hx-swap="none"
+          >
             <svg
               viewBox="0 0 24 24"
               width="26"
@@ -62,7 +67,7 @@
             <span>Convert Resume</span>
           </button>
         </div>
-        <textarea id="resumeTextDisplay" rows="15" cols="80"></textarea>
+        <textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80"></textarea>
       </section>
       <section class="panel-right">
         <button class="download-button">
