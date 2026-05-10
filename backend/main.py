@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi import Form
+import subprocess
+from pathlib import Path
 
 app = FastAPI()
 
@@ -18,6 +20,12 @@ def home():
 
 @app.post("/convert")
 async def convert(markdown: str = Form(...)):
+    workspace = Path("../workspace")
+
+    markdown_file = workspace / "resume.md"
+    pdf_file = workspace / "resume.pdf"
     print(markdown)
+
+    markdown_file.write_text(markdown, encoding="utf-8") # Save md file
 
     return {"status": "received"}
