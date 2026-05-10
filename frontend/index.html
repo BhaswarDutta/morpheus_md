@@ -67,12 +67,16 @@
           </svg>
           <span>Download Resume</span>
         </button>
-        <div class="preview-page">
-          <div class="preview-content">Preview will appear here</div>
+        <div class="preview-viewport">
+          <iframe class="pdf-preview" src="placeholder.pdf"></iframe>
         </div>
       </section>
     </main>
     <script src="htmx.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs"
+      type="module"
+    ></script>
     <script>
       const resumeInput = document.getElementById('resumeInput');
       const resumeTextDisplay = document.getElementById('resumeTextDisplay');
