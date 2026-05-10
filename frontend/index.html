@@ -46,7 +46,8 @@
             class="convert-button"
             hx-post="/convert"
             hx-include="#resumeTextDisplay"
-            hx-swap="none"
+            hx-target="#pdf-preview"
+            hx-swap="outerHTML"
           >
             <svg
               viewBox="0 0 24 24"
@@ -94,7 +95,7 @@
           <span>Download Resume</span>
         </button>
         <div class="preview-viewport">
-          <iframe class="pdf-preview" src="/static/placeholder.pdf"></iframe>
+          <iframe id="pdf-preview" class="pdf-preview" src="/static/placeholder.pdf"></iframe>
         </div>
       </section>
     </main>

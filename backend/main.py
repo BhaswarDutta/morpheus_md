@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 from fastapi import Form
 import subprocess
 from pathlib import Path
@@ -10,6 +11,12 @@ app = FastAPI()
 # Serve frontend folder as static
 app.mount("/static", StaticFiles(directory="../frontend"), name="static")
 
+app.mount(
+    "/generated",
+    StaticFiles(directory="../template/generated"),
+    name="generated",
+)
+
 @app.get("/health")
 def check_health():
     return {"status": "ok"}
@@ -18,7 +25,7 @@ def check_health():
 def home():
     return FileResponse("../frontend/index.html")
 
-@app.post("/convert")
+@app.post("/convert", response_class=HTMLResponse)
 async def convert(markdown: str = Form(...)):
 
     generated_dir = Path("../template/generated")
@@ -47,4 +54,10 @@ async def convert(markdown: str = Form(...)):
 
     print("PDF generated")
 
-    return
+    return """
+    <iframe
+        id="pdf-preview"
+        class="pdf-preview"
+        src="/generated/resume.pdf">
+    </iframe>
+    """
