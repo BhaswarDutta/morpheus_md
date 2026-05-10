@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Morpheus MD</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>Morpheus MD</nav>
+    <main class="columns">
+      <section class="panel-left">
+        <input type="file" id="resumeInput" accept=".md,.txt" />
+        <br />
+        <br />
+        <textarea id="resumeTextDisplay" rows="15" cols="80"></textarea>
+      </section>
+      <section class="panel-right"></section>
+    </main>
+    <script src="htmx.min.js"></script>
+    <script>
+      const resumeInput = document.getElementById('resumeInput');
+      const resumeTextDisplay = document.getElementById('resumeTextDisplay');
+      resumeInput.addEventListener('change', () => {
+        const file = resumeInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+          resumeTextDisplay.value = event.target.result;
+        };
+        reader.readAsText(file);
+      });
+    </script>
+  </body>
+</html>
