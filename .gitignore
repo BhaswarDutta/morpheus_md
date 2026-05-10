@@ -8,3 +8,7 @@ backend/*.egg-info/
 
 # Backend virtual environment
 backend/.venv/
+
+# Templates
+template/generated/*
+!template/generated/.gitkeep

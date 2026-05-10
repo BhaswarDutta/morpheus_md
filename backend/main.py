@@ -20,12 +20,10 @@ def home():
 
 @app.post("/convert")
 async def convert(markdown: str = Form(...)):
-    workspace = Path("../workspace")
+    generated_dir = Path("../template/generated")
+    generated_dir.mkdir(exist_ok=True)
+    markdown_file = generated_dir / "resume.md"
+    markdown_file.write_text(markdown, encoding="utf-8") # Save the .md file
+    print("Markdown saved!!")
 
-    markdown_file = workspace / "resume.md"
-    pdf_file = workspace / "resume.pdf"
-    print(markdown)
-
-    markdown_file.write_text(markdown, encoding="utf-8") # Save md file
-
-    return {"status": "received"}
+    return
