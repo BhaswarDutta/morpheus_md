@@ -42,6 +42,25 @@
             </svg>
             <span>Upload Resume</span>
           </label>
+        </div>
+        <textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80"></textarea>
+        <div class="bottom-controls">
+          <div class="font-size-container">
+            <label for="fontSizeSlider" class="font-size-label">Font Size</label>
+
+            <input
+              type="range"
+              min="4"
+              max="10"
+              step="0.1"
+              value="8"
+              class="font-size-slider"
+              id="fontSizeSlider"
+            />
+
+            <span id="fontSizeValue">8pt</span>
+          </div>
+
           <button
             class="convert-button"
             hx-post="/convert"
@@ -65,23 +84,11 @@
                 ></path>
               </g>
             </svg>
+
             <span class="button-text">Convert Resume</span>
+
             <span class="my-indicator">Converting...</span>
           </button>
-        </div>
-        <textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80"></textarea>
-        <div class="font-size-container">
-          <label for="fontSizeSlider" class="font-size-label">Font Size</label>
-          <input
-            type="range"
-            min="4"
-            max="10"
-            step="0.1"
-            value="8"
-            class="font-size-slider"
-            id="fontSizeSlider"
-          />
-          <span id="fontSizeValue">8pt</span>
         </div>
       </section>
       <section class="panel-right">
