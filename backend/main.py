@@ -32,7 +32,7 @@ def home():
     return FileResponse("../frontend/index.html")
 
 @app.post("/convert", response_class=HTMLResponse)
-async def convert(markdown: str = Form(...)):
+async def convert(markdown: str = Form(...), font_size: str = Form(...)):
 
     generated_dir = Path("../template/generated")
 
@@ -41,10 +41,22 @@ async def convert(markdown: str = Form(...)):
     markdown_file = generated_dir / "resume.md"
     pdf_file = generated_dir / "resume.pdf"
     css_file = Path("../template/resume_style_default.css")
+    css_content = css_file.read_text(encoding="utf-8")
+
+    css_content = css_content.replace(
+        "--txt-size: 8pt;",
+        f"--txt-size: {font_size}pt;"
+    )
+
+    generated_css_file = generated_dir / "generated_style.css"
+    generated_css_file.write_text(
+        css_content,
+        encoding="utf-8"
+    )
 
     markdown_file.write_text(markdown, encoding="utf-8") # Save the .md file
     print("Markdown saved!!")
-
+    print(font_size)
     subprocess.run(
         [
             "pandoc",
@@ -53,7 +65,7 @@ async def convert(markdown: str = Form(...)):
             str(pdf_file),
             "--pdf-engine=weasyprint",
             "-c",
-            str(css_file),
+            str(generated_css_file),
         ],
         check=True
     )

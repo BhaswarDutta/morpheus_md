@@ -1,3 +1,7 @@
+:root {
+  --txt-size: 8pt;
+}
+
 @page {
   size: A4;
   /* Page margins usually stay fixed, but you can tweak these independently */
@@ -15,7 +19,7 @@
 /* --------------------------------------------------- */
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 8pt;
+  font-size: var(--txt-size);
   line-height: 1.25; /* Line height naturally scales, keep unitless */
   color: #111;
   margin: 0;

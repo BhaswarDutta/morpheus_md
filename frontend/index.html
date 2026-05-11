@@ -56,6 +56,7 @@
               value="8"
               class="font-size-slider"
               id="fontSizeSlider"
+              name="font_size"
             />
 
             <span id="fontSizeValue">8pt</span>
@@ -64,7 +65,7 @@
           <button
             class="convert-button"
             hx-post="/convert"
-            hx-include="#resumeTextDisplay"
+            hx-include="#resumeTextDisplay, #fontSizeSlider"
             hx-target="#pdf-preview"
             hx-swap="outerHTML"
           >
