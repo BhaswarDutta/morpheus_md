@@ -26,7 +26,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Inter', system-ui, sans-serif;
-  overflow: hidden;
+  overflow: hidden; /* Lock the viewport */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -58,6 +58,7 @@ nav h1 {
 .panel-left,
 .panel-right {
   padding: 1.5rem;
+  height: 100%;
 }
 
 .panel-left {
@@ -75,7 +76,7 @@ nav h1 {
   flex-direction: column;
   gap: 1rem;
   background: #000000;
-  overflow: auto;
+  overflow: hidden; /* Prevents container-level scrollbars */
 }
 
 /* BUTTONS */
@@ -96,7 +97,7 @@ nav h1 {
   text-decoration: none;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
-  font-weight: 500; /* Normalized weight */
+  font-weight: 500;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -107,10 +108,10 @@ nav h1 {
 .convert-button svg {
   width: 16px;
   height: 16px;
-  opacity: 0.7; /* Normalized opacity */
+  opacity: 0.7;
 }
 
-/* Standard Buttons (Upload/Download) */
+/* Standard Buttons */
 .upload-button,
 .download-button {
   border: 1px solid var(--border-button);
@@ -128,12 +129,12 @@ nav h1 {
 /* PRIMARY ACTION: Inverted Convert Button */
 .convert-button {
   border: 1px solid var(--text);
-  background: var(--text); /* Solid White */
-  color: var(--bg); /* Black Text */
+  background: var(--text);
+  color: var(--bg);
 }
 
 .convert-button svg {
-  filter: invert(1); /* Keeps icon black on white */
+  filter: invert(1);
 }
 
 .convert-button:hover {
@@ -239,24 +240,23 @@ nav h1 {
 
 /* PREVIEW SECTION */
 .preview-viewport {
-  flex: 1;
+  flex: 1; /* Occupy all available vertical space */
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 2.5rem;
-  overflow: auto;
+  align-items: stretch; /* Stretch children to fill */
+  overflow: hidden; /* Disable scrolling on this container */
   border: 1px solid var(--border-dim);
   border-radius: 4px;
   background: #000000;
 }
 
 .pdf-preview {
-  width: 850px;
-  height: 1100px;
-  border: 1px solid var(--border-dim);
+  width: 100%;
+  height: 100%;
+  border: none;
   background: white;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+  /* Fixed width/height removed to allow the browser PDF UI to handle internal scrolling */
 }
 
 /* HTMX LOADING STATES */
