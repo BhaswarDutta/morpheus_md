@@ -282,3 +282,7 @@ nav h1 {
     opacity: 1;
   }
 }
+
+.placeholder-mode {
+  color: var(--text-muted) !important;
+}
