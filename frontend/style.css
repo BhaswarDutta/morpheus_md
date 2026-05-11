@@ -35,17 +35,23 @@ nav {
   height: 56px;
   display: flex;
   align-items: center;
+  justify-content: center; /* This centers the H1 horizontally */
+
   padding: 0 1.5rem;
   border-bottom: 1px solid var(--border-dim);
   background: var(--bg);
+  position: relative; /* Useful if you add side-actions later */
 }
 
 nav h1 {
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.25em; /* Increased for a wider 'Cinematic' look */
   text-transform: uppercase;
   color: var(--text);
+
+  /* Ensure it stays perfectly centered even if container changes */
+  margin: 0 auto;
 }
 
 /* LAYOUT */
