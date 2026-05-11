@@ -17,6 +17,12 @@ app.mount(
     name="generated",
 )
 
+app.mount(
+    "/template",
+    StaticFiles(directory="../template"),
+    name="template",
+)
+
 @app.get("/health")
 def check_health():
     return {"status": "ok"}
