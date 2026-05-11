@@ -134,6 +134,7 @@ nav h1 {
     box-shadow 0.2s ease;
 
   box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+  text-decoration: none;
 }
 
 .upload-button:hover,
