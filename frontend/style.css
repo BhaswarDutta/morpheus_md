@@ -93,7 +93,8 @@ nav h1 {
 
 .upload-button,
 .download-button,
-.convert-button {
+.convert-button,
+.format-resume-button {
   width: fit-content;
   display: inline-flex;
   align-items: center;
@@ -111,7 +112,8 @@ nav h1 {
 
 .upload-button svg,
 .download-button svg,
-.convert-button svg {
+.convert-button svg,
+.format-resume-button svg {
   width: 16px;
   height: 16px;
   opacity: 0.7;
@@ -119,14 +121,16 @@ nav h1 {
 
 /* Standard Buttons */
 .upload-button,
-.download-button {
+.download-button,
+.format-resume-button {
   border: 1px solid var(--border-button);
   background: transparent;
   color: var(--text-muted);
 }
 
 .upload-button:hover,
-.download-button:hover {
+.download-button:hover,
+.format-resume-button:hover {
   border-color: var(--border-hover);
   color: var(--text);
   background: rgba(255, 255, 255, 0.03);
@@ -270,7 +274,8 @@ nav h1 {
   display: none !important;
 }
 
-.htmx-request.convert-button {
+.htmx-request.convert-button,
+.htmx-request.format-resume-button {
   background: var(--bg) !important;
   color: var(--text) !important;
   border-color: var(--border-active) !important;
@@ -278,11 +283,14 @@ nav h1 {
 }
 
 .htmx-request.convert-button .button-text,
-.htmx-request.convert-button svg {
+.htmx-request.convert-button svg,
+.htmx-request.format-resume-button .button-text,
+.htmx-request.format-resume-button svg {
   display: none !important;
 }
 
-.htmx-request.convert-button .my-indicator {
+.htmx-request.convert-button .my-indicator,
+.htmx-request.format-resume-button .my-indicator {
   display: inline-block !important;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;

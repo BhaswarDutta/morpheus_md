@@ -79,3 +79,34 @@ async def convert(markdown: str = Form(...), font_size: str = Form(...)):
         src="/generated/resume.pdf">
     </iframe>
     """
+
+import asyncio
+from fastapi import Form
+from fastapi.responses import HTMLResponse
+
+# ... (other imports)
+
+@app.post("/ai/format", response_class=HTMLResponse)
+async def format_resume(markdown: str = Form(...)):
+    # 1. Emulate the API delay
+    await asyncio.sleep(2)
+
+    # 2. Mock "Formatted" output
+    # This simulates Gemini taking the input and wrapping it in your structure
+    dummy_markdown = f"""# DUMMY FORMATTED RESUME
+
+## CONTACT
+[Name from input]
+Email: dummy@example.com
+
+## EXPERIENCE
+- Successfully tested HTMX loading states
+- Simulated a 2-second API latency with asyncio.sleep
+- Verified that the .my-indicator pulse animation works
+
+## ORIGINAL INPUT (for verification):
+{markdown}
+"""
+
+    # 3. Return the textarea for HTMX to swap
+    return f'<textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80">{dummy_markdown}</textarea>'
