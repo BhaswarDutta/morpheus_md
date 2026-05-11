@@ -45,7 +45,6 @@ nav h1 {
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  /*font-family: 'JetBrains Mono', monospace;*/
   color: var(--text);
 }
 
@@ -93,39 +92,14 @@ nav h1 {
   align-items: center;
   gap: 0.65rem;
   padding: 0.65rem 1rem;
-
-  /* The Warp High-Contrast logic */
-  border: 1px solid var(--border-button);
   border-radius: 4px;
-  background: transparent;
-
-  color: var(--text-muted);
   text-decoration: none;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 500; /* Normalized weight */
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.upload-button:hover,
-.download-button:hover,
-.convert-button:hover {
-  border-color: var(--border-hover);
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.03);
-}
-
-/* SELECTION STATE */
-.upload-button:focus,
-.upload-button:active,
-.convert-button:focus,
-.convert-button:active {
-  border-color: var(--border-active);
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.08);
-  outline: none;
 }
 
 .upload-button svg,
@@ -133,7 +107,53 @@ nav h1 {
 .convert-button svg {
   width: 16px;
   height: 16px;
-  opacity: 0.7;
+  opacity: 0.7; /* Normalized opacity */
+}
+
+/* Standard Buttons (Upload/Download) */
+.upload-button,
+.download-button {
+  border: 1px solid var(--border-button);
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.upload-button:hover,
+.download-button:hover {
+  border-color: var(--border-hover);
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* PRIMARY ACTION: Inverted Convert Button */
+.convert-button {
+  border: 1px solid var(--text);
+  background: var(--text); /* Solid White */
+  color: var(--bg); /* Black Text */
+}
+
+.convert-button svg {
+  filter: invert(1); /* Keeps icon black on white */
+}
+
+.convert-button:hover {
+  background: #e0e0e0;
+  border-color: #e0e0e0;
+}
+
+/* SELECTION / ACTIVE STATES */
+.upload-button:focus,
+.upload-button:active,
+.download-button:focus,
+.download-button:active {
+  border-color: var(--border-active);
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+
+.convert-button:active {
+  transform: scale(0.985);
 }
 
 /* TEXTAREA (EDITOR) */
@@ -198,13 +218,23 @@ nav h1 {
   width: 10px;
   height: 10px;
   background: var(--border-button);
-  border-radius: 0; /* Square thumb for terminal look */
+  border-radius: 0;
   cursor: pointer;
   transition: background 0.2s;
 }
 
 .font-size-slider::-webkit-slider-thumb:hover {
   background: var(--border-active);
+}
+
+#fontSizeValue {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #ffffff;
+  display: inline-block;
+  min-width: 2.5rem;
+  text-align: right;
 }
 
 /* PREVIEW SECTION */
@@ -218,10 +248,9 @@ nav h1 {
   overflow: auto;
   border: 1px solid var(--border-dim);
   border-radius: 4px;
-  background: #000000; /* Dark background to frame the white PDF */
+  background: #000000;
 }
 
-/* THE PDF VIEWPORT */
 .pdf-preview {
   width: 850px;
   height: 1100px;
@@ -231,36 +260,30 @@ nav h1 {
 }
 
 /* HTMX LOADING STATES */
-
-/* 1. Hide the indicator by default */
 .my-indicator {
   display: none !important;
 }
 
-/* 2. When the request is active, hide the text and svg inside the button */
+.htmx-request.convert-button {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border-active) !important;
+  pointer-events: none;
+}
+
 .htmx-request.convert-button .button-text,
 .htmx-request.convert-button svg {
   display: none !important;
 }
 
-/* 3. When the request is active, show the indicator */
 .htmx-request.convert-button .my-indicator {
   display: inline-block !important;
-
-  /* Styling to match your Warp aesthetic */
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
   color: var(--text);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-
   animation: pulse 1.5s infinite;
-}
-
-/* 4. Keep the button border white while loading to show activity */
-.htmx-request.convert-button {
-  border-color: var(--border-active) !important;
-  pointer-events: none; /* Prevent double-clicks */
 }
 
 @keyframes pulse {
@@ -278,19 +301,4 @@ nav h1 {
 /* UTILITY */
 .placeholder-mode {
   color: var(--text-muted) !important;
-}
-
-#fontSizeValue {
-  /* Using Mono to match the 'engineered' feel of the slider */
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.82rem;
-  font-weight: 500;
-
-  /* Keeping it bright white to stand out against the muted label */
-  color: #ffffff;
-
-  /* Ensuring it doesn't jump around when the number changes from 8 to 10 */
-  display: inline-block;
-  min-width: 2.5rem;
-  text-align: right;
 }
