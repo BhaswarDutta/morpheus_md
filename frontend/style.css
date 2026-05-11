@@ -253,3 +253,32 @@ nav h1 {
 .convert-button:active {
   transform: scale(0.98);
 }
+
+/* 1. Basic state: hide indicator */
+.my-indicator {
+  display: none !important;
+}
+
+/* 2. When the button is processing (htmx-request) */
+
+/* Hide the SVG and the original text */
+.htmx-request.convert-button svg,
+.htmx-request.convert-button .button-text {
+  display: none !important;
+}
+
+/* Show the indicator */
+.htmx-request.convert-button .my-indicator {
+  display: inline-block !important;
+  /* Optional: add a slight fade-in for smoothness */
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
