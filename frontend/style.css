@@ -81,7 +81,7 @@ nav h1 {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background: #000000;
+  background: var(--surface);
   overflow: hidden; /* Prevents container-level scrollbars */
 }
 
@@ -91,11 +91,18 @@ nav h1 {
   gap: 0.75rem;
 }
 
+#jd-button-row {
+  justify-content: center;
+  margin-top: 1rem;
+}
+
 .upload-button,
 .download-button,
 .convert-button,
 .format-resume-button,
-.jd-button {
+.jd-button,
+.cancel-button,
+.confirm-button {
   width: fit-content;
   display: inline-flex;
   align-items: center;
@@ -115,7 +122,9 @@ nav h1 {
 .download-button svg,
 .convert-button svg,
 .format-resume-button svg,
-.jd-button svg {
+.jd-button svg,
+.cancel-button svg,
+.confirm-button svg {
   width: 16px;
   height: 16px;
   opacity: 0.7;
@@ -125,7 +134,8 @@ nav h1 {
 .upload-button,
 .download-button,
 .format-resume-button,
-.jd-button {
+.jd-button,
+.cancel-button {
   border: 1px solid var(--border-button);
   background: transparent;
   color: var(--text-muted);
@@ -134,26 +144,45 @@ nav h1 {
 .upload-button:hover,
 .download-button:hover,
 .format-resume-button:hover,
-.jd-button:hover {
+.jd-button:hover,
+.cancel-button:hover {
   border-color: var(--border-hover);
   color: var(--text);
   background: rgba(255, 255, 255, 0.03);
 }
 
+.upload-button:hover svg,
+.download-button:hover svg,
+.format-resume-button:hover svg,
+.jd-button:hover svg,
+.cancel-button:hover svg {
+  opacity: 1;
+}
+
 /* PRIMARY ACTION: Inverted Convert Button */
-.convert-button {
+.convert-button,
+.confirm-button {
   border: 1px solid var(--text);
   background: var(--text);
   color: var(--bg);
 }
 
-.convert-button svg {
+.convert-button svg,
+.confirm-button svg {
   filter: invert(1);
 }
 
-.convert-button:hover {
-  background: #e0e0e0;
-  border-color: #e0e0e0;
+.convert-button:hover,
+.confirm-button:hover {
+  background: var(--bg);
+  border-color: var(--text);
+  color: var(--text);
+}
+
+.convert-button:hover svg,
+.confirm-button:hover svg {
+  filter: invert(0);
+  opacity: 1;
 }
 
 /* SELECTION / ACTIVE STATES */
@@ -167,12 +196,14 @@ nav h1 {
   outline: none;
 }
 
-.convert-button:active {
+.convert-button:active,
+.confirm-button:active {
   transform: scale(0.985);
 }
 
 /* TEXTAREA (EDITOR) */
-#resumeTextDisplay {
+#resumeTextDisplay,
+#jobDescriptionTextDisplay {
   flex: 1;
   width: 100%;
   resize: none;
@@ -188,11 +219,13 @@ nav h1 {
   transition: border-color 0.2s ease;
 }
 
-#resumeTextDisplay:focus {
+#resumeTextDisplay:focus,
+#jobDescriptionTextDisplay:focus {
   border-color: var(--border-button);
 }
 
-#resumeTextDisplay::placeholder {
+#resumeTextDisplay::placeholder,
+#jobDescriptionTextDisplay::placeholder {
   color: #333333;
 }
 
@@ -323,4 +356,38 @@ nav h1 {
 /* UTILITY */
 .placeholder-mode {
   color: var(--text-muted) !important;
+}
+
+/* MODAL STYLING */
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border-active);
+  border-radius: 4px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  color: var(--text);
+  /* Centers the dialog in the viewport */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  outline: none; /* Removes the blue border */
+}
+
+/* THE CINEMATIC BACKDROP */
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+.modal h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-dim);
+  padding-bottom: 0.75rem;
 }

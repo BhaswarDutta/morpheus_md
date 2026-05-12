@@ -67,7 +67,7 @@
             <span class="my-indicator">Formatting...</span>
           </label>
           <label
-            class="jd-button"
+            class="jd-button open-button"
             hx-post="/ai/format"
             hx-include="#resumeTextDisplay"
             hx-target="#resumeTextDisplay"
@@ -93,7 +93,7 @@
                 ></path>
               </g>
             </svg>
-            <span class="button-text">Optimize for JD</span>
+            <span class="button-text">Tailor to JD</span>
             <span class="my-indicator">AI is thinking...</span>
           </label>
         </div>
@@ -178,9 +178,102 @@
           ></iframe>
         </div>
       </section>
+      <dialog class="modal">
+        <h2>Tailor Resume to Job Description</h2>
+        <textarea
+          id="jobDescriptionTextDisplay"
+          name="markdown_jd"
+          rows="15"
+          cols="80"
+          placeholder="Paste your Job Description text here for AI to analyze..."
+        ></textarea>
+        <div class="button-row" id="jd-button-row">
+          <label class="cancel-button">
+            <svg
+              viewBox="0 0 32 32"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+              fill="#000000"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <title>cross-circle</title>
+                <desc>Created with Sketch Beta.</desc>
+                <defs></defs>
+                <g
+                  id="Page-1"
+                  stroke="none"
+                  stroke-width="1"
+                  fill="none"
+                  fill-rule="evenodd"
+                  sketch:type="MSPage"
+                >
+                  <g
+                    id="Icon-Set-Filled"
+                    sketch:type="MSLayerGroup"
+                    transform="translate(-570.000000, -1089.000000)"
+                    fill="#ffffff"
+                  >
+                    <path
+                      d="M591.657,1109.24 C592.048,1109.63 592.048,1110.27 591.657,1110.66 C591.267,1111.05 590.633,1111.05 590.242,1110.66 L586.006,1106.42 L581.74,1110.69 C581.346,1111.08 580.708,1111.08 580.314,1110.69 C579.921,1110.29 579.921,1109.65 580.314,1109.26 L584.58,1104.99 L580.344,1100.76 C579.953,1100.37 579.953,1099.73 580.344,1099.34 C580.733,1098.95 581.367,1098.95 581.758,1099.34 L585.994,1103.58 L590.292,1099.28 C590.686,1098.89 591.323,1098.89 591.717,1099.28 C592.11,1099.68 592.11,1100.31 591.717,1100.71 L587.42,1105.01 L591.657,1109.24 L591.657,1109.24 Z M586,1089 C577.163,1089 570,1096.16 570,1105 C570,1113.84 577.163,1121 586,1121 C594.837,1121 602,1113.84 602,1105 C602,1096.16 594.837,1089 586,1089 L586,1089 Z"
+                      id="cross-circle"
+                      sketch:type="MSShapeGroup"
+                    ></path>
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <span>Cancel</span>
+          </label>
+          <label class="confirm-button">
+            <svg
+              viewBox="0 0 32 32"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+              fill="#000000"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <title>checkmark-circle</title>
+                <desc>Created with Sketch Beta.</desc>
+                <defs></defs>
+                <g
+                  id="Page-1"
+                  stroke="none"
+                  stroke-width="1"
+                  fill="none"
+                  fill-rule="evenodd"
+                  sketch:type="MSPage"
+                >
+                  <g
+                    id="Icon-Set-Filled"
+                    sketch:type="MSLayerGroup"
+                    transform="translate(-102.000000, -1141.000000)"
+                    fill="#ffffff"
+                  >
+                    <path
+                      d="M124.393,1151.43 C124.393,1151.43 117.335,1163.73 117.213,1163.84 C116.81,1164.22 116.177,1164.2 115.8,1163.8 L111.228,1159.58 C110.85,1159.18 110.871,1158.54 111.274,1158.17 C111.677,1157.79 112.31,1157.81 112.688,1158.21 L116.266,1161.51 L122.661,1150.43 C122.937,1149.96 123.548,1149.79 124.027,1150.07 C124.505,1150.34 124.669,1150.96 124.393,1151.43 L124.393,1151.43 Z M118,1141 C109.164,1141 102,1148.16 102,1157 C102,1165.84 109.164,1173 118,1173 C126.836,1173 134,1165.84 134,1157 C134,1148.16 126.836,1141 118,1141 L118,1141 Z"
+                      id="checkmark-circle"
+                      sketch:type="MSShapeGroup"
+                    ></path>
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <span>Confirm</span>
+          </label>
+        </div>
+      </dialog>
     </main>
     <script src="/static/htmx.min.js"></script>
     <script src="/static/boilerplate_resume.js"></script>
     <script src="/static/font_size_slider.js"></script>
+    <script src="/static/add_jd.js"></script>
   </body>
 </html>
