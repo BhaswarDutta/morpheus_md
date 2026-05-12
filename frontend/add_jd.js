@@ -8,3 +8,8 @@ openModal.addEventListener('click', () => {
 closeModal.addEventListener('click', () => {
   modal.close();
 });
+
+// Add this function to the bottom
+window.handleConfirm = function () {
+  modal.close();
+};

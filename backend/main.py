@@ -110,3 +110,26 @@ Email: dummy@example.com
 
     # 3. Return the textarea for HTMX to swap
     return f'<textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80">{dummy_markdown}</textarea>'
+
+@app.post("/ai/optimize_test", response_class=HTMLResponse)
+async def optimize_test(markdown: str = Form(...), markdown_jd: str = Form(...)):
+    # 1. Emulate AI thinking time
+    await asyncio.sleep(2)
+
+    # 2. Build a confirmation message showing both inputs were received
+    dummy_output = f"""# AI OPTIMIZATION TEST SUCCESSFUL
+
+## RECEIVED JOB DESCRIPTION:
+{markdown_jd}
+
+## RECEIVED ORIGINAL RESUME:
+{markdown[:100]}... (truncated for brevity)
+
+## SYSTEM CHECK:
+- Remote Indicator: Targeted #mainTailorBtn
+- Multi-Input: Captured both #resumeTextDisplay and #jobDescriptionTextDisplay
+- Transition: Modal closed, user returned to main dashboard.
+"""
+
+    # 3. Swap the main editor with this confirmation
+    return f'<textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80">{dummy_output}</textarea>'

@@ -66,13 +66,7 @@
             <span class="button-text">Format Resume</span>
             <span class="my-indicator">Formatting...</span>
           </label>
-          <label
-            class="jd-button open-button"
-            hx-post="/ai/format"
-            hx-include="#resumeTextDisplay"
-            hx-target="#resumeTextDisplay"
-            hx-swap="outerHTML"
-          >
+          <label id="mainTailorBtn" class="jd-button open-button">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -228,7 +222,16 @@
             </svg>
             <span>Cancel</span>
           </label>
-          <label class="confirm-button">
+          <label
+            type="button"
+            class="confirm-button"
+            hx-post="/ai/optimize_test"
+            hx-include="#resumeTextDisplay, #jobDescriptionTextDisplay"
+            hx-target="#resumeTextDisplay"
+            hx-swap="outerHTML"
+            hx-indicator="#mainTailorBtn"
+            onclick="handleConfirm()"
+          >
             <svg
               viewBox="0 0 32 32"
               version="1.1"
