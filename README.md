@@ -106,3 +106,7 @@ uv run test_gemini_api.py
   - [ ] Support for importing `.docx` files if you have Word Docs
 - [ ] **v3** (_Further future plans maybe?_)
   - [ ] I'm not happy with the markdown typing experience in the Web App so I might integrate a JS library or write something from scratch (_Right now I personally use Obsidian to write all my markdown in._)
+
+Made with ❤️ for Open Source Software.
+This project is MIT so use it in any way you want to.
+If you do do tag me on Twitter😉
