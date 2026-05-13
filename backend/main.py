@@ -148,28 +148,58 @@ async def format_resume(markdown: str = Form(...)):
 
 
 
-@app.post("/ai/optimize_test", response_class=HTMLResponse)
-async def optimize_test(markdown: str = Form(...), markdown_jd: str = Form(...)):
-    # 1. Emulate AI thinking time
-    await asyncio.sleep(2)
+@app.post("/ai/tailor_to_jd", response_class=HTMLResponse)
+async def tailor_to_jd(markdown: str = Form(...), markdown_jd: str = Form(...)):
+    if not api_key:
+        error_message = """
+            ❌ ERROR: GOOGLE_API_KEY not found in .env
+            Unable to access Gemini API
+        """
+        return f'<textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80">{error_message}</textarea>'
 
-    # 2. Build a confirmation message showing both inputs were received
-    dummy_output = f"""# AI OPTIMIZATION TEST SUCCESSFUL
+    prompt = f"""
+    Act as a Senior Staff Engineer and ATS Optimizer.
+    I am applying for a job. I will provide my BASE RESUME and the JOB DESCRIPTION.
 
-## RECEIVED JOB DESCRIPTION:
-{markdown_jd}
+    ### CONTEXT:
+    HR often includes an absurd amount of "fluff" in JDs. Your goal is to identify the ACTUAL technical requirements and core competencies, then inject them aggressively into my resume.
 
-## RECEIVED ORIGINAL RESUME:
-{markdown[:100]}... (truncated for brevity)
+    ### INPUT DATA:
+    1. **JOB DESCRIPTION:**
+    {markdown_jd}
 
-## SYSTEM CHECK:
-- Remote Indicator: Targeted #mainTailorBtn
-- Multi-Input: Captured both #resumeTextDisplay and #jobDescriptionTextDisplay
-- Transition: Modal closed, user returned to main dashboard.
-"""
+    2. **BASE RESUME (MARKDOWN):**
+    {markdown}
 
-    # 3. Swap the main editor with this confirmation
-    return f'<textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80">{dummy_output}</textarea>'
+    ### RULES:
+    1. **STRICT FORMATTING:** Maintain the exact Markdown structure of the BASE RESUME. Do not change header levels, font styles, or the general layout.
+    2. **KEYWORD INJECTION:** Aggressively weave high-value keywords from the JD (e.g., specific tech stacks, "Operational Excellence", "System Design", "Agile") into my existing project descriptions and skills.
+    3. **NO HALLUCINATIONS:** Keep my project facts, dates, and companies exactly as they are. Only change the *phrasing* to align with the JD's vocabulary.
+    4. **ATS SCORING:** Use terminology that an ATS or a non-technical recruiter would look for, but keep it technically accurate for the hiring manager.
+    5. **CLEAN OUTPUT:** Return ONLY the updated markdown text. No conversational filler or code fences.
+
+    ### UPDATED RESUME:
+    """
+    try:
+        response = client.models.generate_content(
+            model="gemini-3-flash-preview",
+            contents=prompt
+        )
+
+        if response.text:
+            return f'<textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80">{response.text}</textarea>'
+        else:
+            error_message = """
+                ❌ ERROR: No message received from Gemini API
+            """
+            return f'<textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80">{error_message}</textarea>'
+
+    except Exception as e:
+        error_message = f"""
+            ❌ ERROR:{e}
+        """
+
+        return f'<textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80">{error_message}</textarea>'
 
 
 
@@ -197,3 +227,26 @@ async def optimize_test(markdown: str = Form(...), markdown_jd: str = Form(...))
 
 #     # 3. Return the textarea for HTMX to swap
 #     return f'<textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80">{dummy_markdown}</textarea>'
+
+# @app.post("/ai/optimize_test", response_class=HTMLResponse)
+# async def optimize_test(markdown: str = Form(...), markdown_jd: str = Form(...)):
+#     # 1. Emulate AI thinking time
+#     await asyncio.sleep(2)
+
+#     # 2. Build a confirmation message showing both inputs were received
+#     dummy_output = f"""# AI OPTIMIZATION TEST SUCCESSFUL
+
+# ## RECEIVED JOB DESCRIPTION:
+# {markdown_jd}
+
+# ## RECEIVED ORIGINAL RESUME:
+# {markdown[:100]}... (truncated for brevity)
+
+# ## SYSTEM CHECK:
+# - Remote Indicator: Targeted #mainTailorBtn
+# - Multi-Input: Captured both #resumeTextDisplay and #jobDescriptionTextDisplay
+# - Transition: Modal closed, user returned to main dashboard.
+# """
+
+#     # 3. Swap the main editor with this confirmation
+#     return f'<textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80">{dummy_output}</textarea>'
