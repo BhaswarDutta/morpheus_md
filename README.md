@@ -26,67 +26,17 @@ _Tailor your resume for each Job Application in two clicks_
 
 ### Demo Website
 
-- Right now we do not have a demo website yet because the project is still in active development and I haven't decided on a VPS provider yet. Eventually we will have a working demo, and maybe later I will even think of adding accounts for you to log in to 😉
-
-`FUTURE DEMO LINK WILL BE PASTED HERE`
-
-- For now you have to run it locally or you would need to host this yourself 😝
+- This is what I have hosted on my VPS at: [morpheus-md.cloud](https://morpheus-md.cloud/)
+- I still have accounts to be implemented so if you need something with a large number of API requests host it yourself
+- Later I will introduce a paid tier because I am a capitalist 😼
+- No seriously I literally have my free tier of Gemini API out in the open and if the website views are large I would move on to a paid tier of Gemini API which is faster but also costs me money. Thus I will have to charge for it for this Website to be sustainable.
+- But hey if you do now want to pay for it you can always run it locally on your machine with your own Free Gemini Key.
 
 ### Running locally
 
-- Clone the GitHub repo
-
-```bash
-git clone --depth 1 https://github.com/BhaswarDutta/morpheus_md.git
-```
-
-- You need to have `uv` installed for the python dependency and virtual environment management
-- On your machine you would also need `pandoc` and it's rendering engine we are currently using `weasyprint` to be installed.
-- On Arch Linux it's a simple command, look into your OS of choice on how to install the dependencies. (_PS. If you're on Windows use WSL for the sake of your sanity._)
-
-```bash
-sudo pacman -S uv pandoc python-weasyprint
-```
-
-- Get inside the directory of the `backend` folder
-
-```bash
-cd morpheus_md/backend
-```
-
-- Install python dependencies using `uv`
-
-```bash
-uv sync
-```
-
-- Run the server
-
-```bash
-uv run fastapi dev main.py
-```
-
-- If you need the AI features you would need your key for Gemini. Feel free to change it to your favorite AI provider, only reason I am using Gemini is because it has a nice free tier. (_AI Features are still a Work in Progress. Though I expect to be done soon._)
-- Now while inside the `backend` folder create a `.env` file
-- Go to [Google AI Studio](https://aistudio.google.com/) and get your free API key
-- Add your API key to the `.env` file as follows
-
-```
-GOOGLE_API_KEY=your_api_key
-```
-
-- Test if your API key is working using a python script I have already made for that
-
-```bash
-uv run test_gemini_api.py
-```
-
-- If you get the following output, congrats your API is working
-
-```
-✅ CONNECTION SUCCESSFUL!
-🤖 Gemini 3 says: Morpheus is online.
-```
+- I moved this section to a separate Wiki section in GitHub.
+- Check it out at [Morpheus MD Wiki](https://github.com/BhaswarDutta/morpheus_md/wiki)
+-
 
 ## Feature Roadmap
 
@@ -95,15 +45,22 @@ uv run test_gemini_api.py
 - [x] **v1**
   - [x] Web App based on `HTMX` and `FastAPI` which gives the bash script a nice UX with a monochrome CSS look
   - [x] Add a global font size option if you want to cram your resume into a single page. (_Some ATS systems need you to do it_ 😞)
-- [ ] **v1.1**
+- [x] **v1.1**
   - [x] Frontend button for convert to proper formatted Markdown using AI
   - [x] Frontend button for tailor to Job Description using AI
-  - [ ] Backend APIs connecting to Gemini and having predefined prompts
+  - [x] Backend APIs connecting to Gemini and having predefined prompts
+  - [x] Dockerize the project for easier deployment
+  - [x] Demo deployed at [morpheus-md.cloud](https://morpheus-md.cloud/)
 - [ ] **v2** (_Future Plans_)
+  - [ ] UX improvements
+    - [ ] Better popups when Gemini is down
   - [ ] Switching `pdf` conversion to using `LaTeX` over `weasyprint` and `CSS`
   - [ ] Multiple templates for different needs and different designs
   - [ ] Custom `LaTeX` support if you already have a Resume in `LaTeX`
   - [ ] Support for importing `.docx` files if you have Word Docs
+  - [ ] I'm not happy with my project being entirely reliant of Google's Gemini. I want it to be able to work with multiple LLM providers and eventually a self hosted one.
+    - [ ] Integration with other LLM APIs such as OpenAI and Anthropic
+    - [ ] Integration with locally running LLMs such as Deepseek or Qwen
 - [ ] **v3** (_Further future plans maybe?_)
   - [ ] I'm not happy with the markdown typing experience in the Web App so I might integrate a JS library or write something from scratch (_Right now I personally use Obsidian to write all my markdown in._)
 
