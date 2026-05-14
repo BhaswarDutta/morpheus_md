@@ -9,6 +9,12 @@ import os
 from dotenv import load_dotenv
 from google import genai
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIR = BASE_DIR / "frontend"
+TEMPLATE_DIR = BASE_DIR / "template"
+GENERATED_DIR = TEMPLATE_DIR / "generated"
+
+
 app = FastAPI()
 
 load_dotenv()
@@ -17,17 +23,17 @@ client = genai.Client(api_key=api_key, http_options={'api_version': 'v1beta'})
 
 
 # Serve frontend folder as static
-app.mount("/static", StaticFiles(directory="../frontend"), name="static")
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
 app.mount(
     "/generated",
-    StaticFiles(directory="../template/generated"),
+    StaticFiles(directory=GENERATED_DIR),
     name="generated",
 )
 
 app.mount(
     "/template",
-    StaticFiles(directory="../template"),
+    StaticFiles(directory=TEMPLATE_DIR),
     name="template",
 )
 
@@ -37,18 +43,18 @@ def check_health():
 
 @app.get("/")
 def home():
-    return FileResponse("../frontend/index.html")
+    return FileResponse(FRONTEND_DIR / "index.html")
 
 @app.post("/convert", response_class=HTMLResponse)
 async def convert(markdown: str = Form(...), font_size: str = Form(...)):
 
-    generated_dir = Path("../template/generated")
+    generated_dir = GENERATED_DIR
 
-    generated_dir.mkdir(exist_ok=True)
+    generated_dir.mkdir(parents=True, exist_ok=True)
 
     markdown_file = generated_dir / "resume.md"
     pdf_file = generated_dir / "resume.pdf"
-    css_file = Path("../template/resume_style_default.css")
+    css_file = TEMPLATE_DIR / "resume_style_default.css"
     css_content = css_file.read_text(encoding="utf-8")
 
     css_content = css_content.replace(
@@ -94,7 +100,7 @@ async def convert(markdown: str = Form(...), font_size: str = Form(...)):
 async def format_resume(markdown: str = Form(...)):
 
 
-    boilerplate_path = Path("../template/boilerplate_resume.md")
+    boilerplate_path = TEMPLATE_DIR / "boilerplate_resume.md"
     boilerplate = boilerplate_path.read_text(encoding="utf-8")
 
     if not api_key:

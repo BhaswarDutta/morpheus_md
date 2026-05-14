@@ -1,0 +1,24 @@
+# Backend Python-generated files
+backend/__pycache__/
+backend/*.py[oc]
+backend/build/
+backend/dist/
+backend/wheels/
+backend/*.egg-info/
+
+# Backend virtual environment
+backend/.venv/
+
+# Templates
+template/generated/*
+!template/generated/.gitkeep
+
+# Environment secrets
+**/.env
+
+# Git
+.git/
+.gitignore
+
+# Misc
+.DS_Store
