@@ -1,0 +1,8 @@
+services:
+  morpheus-md:
+    image: ghcr.io/bhaswardutta/morpheus-md:latest
+    env_file:
+      - backend/.env
+    ports:
+      - '8000:8000'
+    restart: unless-stopped
