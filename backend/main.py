@@ -8,7 +8,6 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from google import genai
-import asyncio
 
 app = FastAPI()
 
@@ -200,53 +199,3 @@ async def tailor_to_jd(markdown: str = Form(...), markdown_jd: str = Form(...)):
         """
 
         return f'<textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80">{error_message}</textarea>'
-
-
-
-# @app.post("/ai/format", response_class=HTMLResponse)
-# async def format_resume(markdown: str = Form(...)):
-#     # 1. Emulate the API delay
-#     await asyncio.sleep(2)
-
-#     # 2. Mock "Formatted" output
-#     # This simulates Gemini taking the input and wrapping it in your structure
-#     dummy_markdown = f"""# DUMMY FORMATTED RESUME
-
-# ## CONTACT
-# [Name from input]
-# Email: dummy@example.com
-
-# ## EXPERIENCE
-# - Successfully tested HTMX loading states
-# - Simulated a 2-second API latency with asyncio.sleep
-# - Verified that the .my-indicator pulse animation works
-
-# ## ORIGINAL INPUT (for verification):
-# {markdown}
-# """
-
-#     # 3. Return the textarea for HTMX to swap
-#     return f'<textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80">{dummy_markdown}</textarea>'
-
-# @app.post("/ai/optimize_test", response_class=HTMLResponse)
-# async def optimize_test(markdown: str = Form(...), markdown_jd: str = Form(...)):
-#     # 1. Emulate AI thinking time
-#     await asyncio.sleep(2)
-
-#     # 2. Build a confirmation message showing both inputs were received
-#     dummy_output = f"""# AI OPTIMIZATION TEST SUCCESSFUL
-
-# ## RECEIVED JOB DESCRIPTION:
-# {markdown_jd}
-
-# ## RECEIVED ORIGINAL RESUME:
-# {markdown[:100]}... (truncated for brevity)
-
-# ## SYSTEM CHECK:
-# - Remote Indicator: Targeted #mainTailorBtn
-# - Multi-Input: Captured both #resumeTextDisplay and #jobDescriptionTextDisplay
-# - Transition: Modal closed, user returned to main dashboard.
-# """
-
-#     # 3. Swap the main editor with this confirmation
-#     return f'<textarea id="resumeTextDisplay" name="markdown" rows="15" cols="80">{dummy_output}</textarea>'
